@@ -24,7 +24,7 @@
             font-size: 36px;
         }
 
-        /* 轮播图容器 */
+        /* 轮播图 */
         .slider {
             position: relative;
             width: 100%;
@@ -34,49 +34,53 @@
             margin: 30px 0;
         }
 
-        /* 轮播图片 */
-        .slides {
-            width: 600%;
+        .slide {
+            display: none;
+            width: 100%;
             height: 100%;
-            display: flex;
-            animation: slide 18s infinite linear;
         }
 
-        .slides img {
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* 自动轮播动画 */
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            16% { transform: translateX(0); }
-            20% { transform: translateX(-100%); }
-            36% { transform: translateX(-100%); }
-            40% { transform: translateX(-200%); }
-            56% { transform: translateX(-200%); }
-            60% { transform: translateX(-300%); }
-            76% { transform: translateX(-300%); }
-            80% { transform: translateX(-400%); }
-            96% { transform: translateX(-400%); }
-            100% { transform: translateX(-500%); }
+        /* 左右按钮 */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 4px;
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
         }
 
         .product-info {
             margin-top: 20px;
         }
 
-        .product-info p {
-            font-size: 18px;
-            color: #666;
-            margin: 10px 0;
-        }
-
         .price {
             font-size: 28px;
-            color: #222;
             font-weight: bold;
+            color: #222;
             margin-top: 10px;
         }
     </style>
@@ -85,22 +89,53 @@
 <body>
     <h1>Q6 Hair for Men</h1>
 
-    <!-- 轮播图 -->
     <div class="slider">
-        <div class="slides">
-            <img src="https://i.imgur.com/8K5fXwR.jpg" alt="Q6 Hair System">
-            <img src="https://i.imgur.com/VXb1c9D.jpg" alt="Q6 Hair System">
-            <img src="https://i.imgur.com/tj6Wb7l.jpg" alt="Q6 Hair System">
-            <img src="https://i.imgur.com/n4w3X3c.jpg" alt="Q6 Hair System">
-            <img src="https://i.imgur.com/mQ997pM.jpg" alt="Q6 Hair System">
-            <img src="https://i.imgur.com/m0o0K9c.jpg" alt="Q6 Hair System">
+        <div class="slide active">
+            <img src="https://i.imgur.com/8K5fXwR.jpg" alt="Q6 Hair">
         </div>
+        <div class="slide">
+            <img src="https://i.imgur.com/VXb1c9D.jpg" alt="Q6 Hair">
+        </div>
+        <div class="slide">
+            <img src="https://i.imgur.com/tj6Wb7l.jpg" alt="Q6 Hair">
+        </div>
+        <div class="slide">
+            <img src="https://i.imgur.com/n4w3X3c.jpg" alt="Q6 Hair">
+        </div>
+        <div class="slide">
+            <img src="https://i.imgur.com/mQ997pM.jpg" alt="Q6 Hair">
+        </div>
+        <div class="slide">
+            <img src="https://i.imgur.com/m0o0K9c.jpg" alt="Q6 Hair">
+        </div>
+
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
 
-    <!-- 产品信息 -->
     <div class="product-info">
-        <p>100% Human Hair • Swiss Lace Base • Invisible Hairline</p>
+        <p>100% Human Hair • Invisible Lace • Comfortable</p>
         <p class="price">$120.00</p>
     </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[n].classList.add('active');
+        }
+
+        function nextSlide() {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        }
+
+        function prevSlide() {
+            current = (current - 1 + slides.length) % slides.length;
+            showSlide(current);
+        }
+    </script>
 </body>
 </html>
