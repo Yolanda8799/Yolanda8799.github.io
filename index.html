@@ -5,81 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q6 Hair for Men</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            margin: 20px 0;
-            font-size: 36px;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:Arial,sans-serif; max-width:1000px; margin:0 auto; padding:20px; text-align:center; }
+        h1 { margin:30px 0; }
+        
         .slider {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 10px;
-            margin: 30px 0;
+            position:relative;
+            width:100%;
+            height:500px;
+            overflow:hidden;
+            border-radius:10px;
+            margin-bottom:30px;
+            background: #f5f5f5; /* 给背景加个浅灰色，防止图片周围空的地方难看 */
         }
 
         .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
+            display:none;
+            width:100%;
+            height:100%;
         }
 
         .slide.active {
-            display: block;
+            display:block;
         }
 
+        /* 把object-fit从cover改成contain，让图片完整显示，不会被裁切 */
         .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            background: #f5f5f5;
         }
 
         .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 4px;
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            background:rgba(0,0,0,0.5);
+            color:white;
+            border:none;
+            padding:18px;
+            font-size:20px;
+            cursor:pointer;
+            z-index:999;
+            border-radius:5px;
         }
 
-        .prev {
-            left: 15px;
-        }
-
-        .next {
-            right: 15px;
-        }
-
-        .product-info {
-            margin-top: 20px;
-        }
+        .prev { left:15px; }
+        .next { right:15px; }
 
         .price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #222;
-            margin-top: 10px;
+            font-size:30px;
+            font-weight:bold;
+            margin-top:15px;
         }
     </style>
 </head>
@@ -89,50 +67,52 @@
 
     <div class="slider">
         <div class="slide active">
-            <img src="/images/wig1.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/8K5fXwR.jpg" alt="Q6 Hair">
         </div>
         <div class="slide">
-            <img src="/images/wig2.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/VXb1c9D.jpg" alt="Q6 Hair">
         </div>
         <div class="slide">
-            <img src="/images/wig3.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/tj6Wb7l.jpg" alt="Q6 Hair">
         </div>
         <div class="slide">
-            <img src="/images/wig4.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/n4w3X3c.jpg" alt="Q6 Hair">
         </div>
         <div class="slide">
-            <img src="/images/wig5.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/mQ997pM.jpg" alt="Q6 Hair">
         </div>
         <div class="slide">
-            <img src="/images/wig6.jpg.png" alt="Q6 Hair System">
+            <img src="https://i.imgur.com/m0o0K9c.jpg" alt="Q6 Hair">
         </div>
 
-        <button class="prev" onclick="prevSlide()">&#10094;</button>
-        <button class="next" onclick="nextSlide()">&#10095;</button>
+        <button class="prev" onclick="prev()">&#10094;</button>
+        <button class="next" onclick="next()">&#10095;</button>
     </div>
 
-    <div class="product-info">
-        <p>100% Human Hair • Swiss Lace Base • Invisible Hairline</p>
-        <p class="price">$120.00</p>
-    </div>
+    <p>100% Human Hair • Invisible Lace • Comfortable</p>
+    <p class="price">$120.00</p>
 
     <script>
-        let current = 0;
-        const slides = document.querySelectorAll('.slide');
+        let i = 0;
+        let slides = document.querySelectorAll(".slide");
 
-        function showSlide(n) {
-            slides.forEach(s => s.classList.remove('active'));
-            slides[n].classList.add('active');
+        function show() {
+            slides.forEach((s,idx) => {
+                s.classList.remove("active");
+                if(idx == i) s.classList.add("active");
+            });
         }
 
-        function nextSlide() {
-            current = (current + 1) % slides.length;
-            showSlide(current);
+        function next() {
+            i++;
+            if(i >= slides.length) i=0;
+            show();
         }
 
-        function prevSlide() {
-            current = (current - 1 + slides.length) % slides.length;
-            showSlide(current);
+        function prev() {
+            i--;
+            if(i < 0) i=slides.length-1;
+            show();
         }
     </script>
 </body>
